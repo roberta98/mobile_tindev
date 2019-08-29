@@ -1,8 +1,8 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-target 'tindev' do
-  # Pods for tindev
+target 'mobile_tindev' do
+  # Pods for mobile_tindev
   pod 'React', :path => '../node_modules/react-native/'
   pod 'React-Core', :path => '../node_modules/react-native/React'
   pod 'React-DevSupport', :path => '../node_modules/react-native/React'
@@ -27,7 +27,7 @@ target 'tindev' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  target 'tindevTests' do
+  target 'mobile_tindevTests' do
     inherit! :search_paths
     # Pods for testing
   end
@@ -35,10 +35,10 @@ target 'tindev' do
   use_native_modules!
 end
 
-target 'tindev-tvOS' do
-  # Pods for tindev-tvOS
+target 'mobile_tindev-tvOS' do
+  # Pods for mobile_tindev-tvOS
 
-  target 'tindev-tvOSTests' do
+  target 'mobile_tindev-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

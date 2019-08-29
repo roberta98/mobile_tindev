@@ -1,22 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import {KeyboardAvoidingView, Platform, Text, StyleSheet, Image, TextInput, TouchableOpacity} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import { loginUser } from '../services/api';
 
-import api from '../services/api';
+import logo from '../assets/tindev.png';  
 
-import logo from '../assets/tindev.png';
 
 const Login = ({ navigation }) => {
 
     const [user, setUser] = useState('');
 
-    async function handleLogin(){
+    useEffect(() => {
+        AsyncStorage.getItem('user').then(user => {
+            if(user) {  
+                navigation.navigate('Main', { user })
+            }
+        })  
+    }, [])    
+
+    function handleLogin(){  
         //const response = await api.post('/devs', { username : user });
+        loginUser(user).then(res => {
+            if(res.status != 200){
+                console.log("Error" + res.json())
+                throw new Error("Cadastro não efetuado");
+            }
+            return res.json();
+        }).then(async body => {   
+            const _id = body._id;
+            await AsyncStorage.setItem('user', _id);   
+            navigation.navigate('Main', { user :  _id });     
+        }).catch(e => {
+            alert("Error: " + e.message);
+            console.log("Error: " + e.message);
+        })
 
-        api({ username : user })  
-
-        // const _id = response.data;  
-        // navigation.navigate('Main', { _id });
-        alert(user) 
     }  
 
     return(
