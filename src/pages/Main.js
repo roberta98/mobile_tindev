@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { View, SafeAreaView, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { listUser } from '../services/api';
+import { listUser, like, dislike } from '../services/api';
 
 import logo from '../assets/tindev.png';  
 import like from '../assets/like.png';  
@@ -19,12 +19,12 @@ const Main = ({ navigation }) => {
             listUser(id).then(res => {     
                 if(res.status != 200){  
                     console.log("Error" + res.json())
-                    throw new Error("Não foram econtrados usuários");
+                    throw new Error("Não foram encontrados usuários");
                 }
                 return res.json();   
       
-            }).then(body => {     
-                setUsers(body)       
+            }).then(data => {     
+                setUsers(data)       
 
             }).catch(e => {
                 alert("Error: " + e.message);   
@@ -36,7 +36,8 @@ const Main = ({ navigation }) => {
            
     }, [id]) 
 
-    
+    like(id)    
+    dislike(id)
 
 
     return(

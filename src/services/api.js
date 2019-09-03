@@ -8,9 +8,17 @@ const loginUser = (user) => {
 const listUser = (id) => {
     return fetch('http://localhost:3333/devs', {method:'GET', headers: { user : id } });
 }
+
+const like = (id) => {
+    return fetch(`http://localhost:3333/devs/${id}/likes`, null,  { method : 'POST',  headers: { user : id}});
+}
+
+const dislike = (id) => {
+    return fetch(`http://localhost:3333/devs/${id}/dislikes`, null, {method: 'POST', headers : { user : id }})
+} 
       
 // const api = axios.create({ 
 //     baseURL: 'http://192.168.137.1:3333'      
 // })  
  
-export {loginUser, listUser};   
+export { loginUser, listUser, like, dislike };   
